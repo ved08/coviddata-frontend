@@ -1,0 +1,9 @@
+.Homepage button {
+  width: 200px;
+  height: 30px;
+  font-size: 15px;
+}
+.Homepage-link {
+  text-decoration: none;
+  color: black;
+}
