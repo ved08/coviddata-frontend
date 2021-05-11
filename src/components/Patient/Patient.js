@@ -1,7 +1,9 @@
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
+import { withRouter } from "react-router-dom"
+import "./PatientReg.css"
 
-const PatientRegistration = () => {
+const PatientRegistration = props => {
     const [ name, setName ] = useState("")
     const [ blood, setBlood ] = useState("")
     const [ age, setAge ] = useState(0)
@@ -12,32 +14,44 @@ const PatientRegistration = () => {
     const [ relationship, setRelationship ] = useState("")
     const [ requirements, setRequirements ] = useState("")
     const [ spo2, setSpo2 ] = useState("")
-    const [ completeData, setCompleteData ] = useState({});
+    const [resLinks, setResLinks] = useState([]);
 
     const submitHandler = () => {
-        if(name && blood && age && hospitalName && state && phn && city && relationship && requirements && spo2) {
-            setCompleteData(
-                {
-                    "name": name, 
-                    "blood": blood, 
-                    "age": age, 
-                    "hospitalName": hospitalName,  
-                    "spo2": spo2, 
-                    "state": state, 
-                    "city": city, 
-                    "phn": phn, 
-                    "requirements": requirements, 
-                    "relationship": relationship
-                }
-            )
-            axios.post("http://localhost:5000/resources", completeData)
+        if(name && blood && age && hospitalName && state && phn && city && relationship && requirements && spo2) {    
+            let data = {
+                "name": name, 
+                "blood": blood, 
+                "age": age, 
+                "hospitalName": hospitalName,  
+                "spo2": spo2, 
+                "state": state, 
+                "city": city, 
+                "phn": phn, 
+                "requirements": requirements, 
+                "relationship": relationship
+            }
+            axios.post("https://coviddata.vedvardhan.repl.co/resources", data)
             .then(res => {
-                console.log(res)
+                let str = res.data.split("")
+                for (let i = 0; i <= str.length; i++) {
+                    if(str[i] == "'") {
+                        str[i] = '"'
+                    }
+                }
+                str = str.join('')
+                str = JSON.parse(str)
+                setResLinks(str)
+                console.log(str)
+                props.links(str)
+                props.history.push('/patient/links')
             })
+            .catch(err => alert(err.message))
         } else alert("All fields are required")
     }
+
     return(
         <div className="Patient">
+            <h1>Patient Registration</h1>
             <div className="Registration-field">
                 <label>Patient Name</label>
                 <input type="text" onChange={e => setName(e.target.value)} />
@@ -45,7 +59,7 @@ const PatientRegistration = () => {
             <div className="Registration-field">
                 <label>Blood Group</label>
                 <select onChange={e => setBlood(e.target.value)}>
-                    <option disabled selected hidden>Select</option>
+                    <option disabled hidden selected>Select</option>
                     <option value="A+">A+</option>
                     <option value="A-">A-</option>
                     <option value="B+">B+</option>
@@ -68,7 +82,7 @@ const PatientRegistration = () => {
             <div className="Registration-field">
                 <label>State</label>
                 <select onChange={e => setState(e.target.value)}>
-                    <option disabled selected hidden>Select</option>
+                    <option disabled hidden selected>Select</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -113,7 +127,16 @@ const PatientRegistration = () => {
             </div>
             <div className="Registration-field">
                 <label>Phone Number</label>
-                <input minLength="10" maxLength="10" onChange={e => setPhn(e.target.value)}/>
+                <input 
+                    type="number" 
+                    maxLength="10" 
+                    onChange={e => setPhn(e.target.value)}
+                    onInput={
+                        e => (e.target.value.length > e.target.maxLength) ? 
+                        e.target.value = e.target.value.slice(0, e.target.maxLength): 
+                        null
+                    }
+                />
             </div>
             <div className="Registration-field">
                 <label>Relationship with patient</label>
@@ -132,4 +155,4 @@ const PatientRegistration = () => {
     );
 }
 
-export default PatientRegistration
+export default withRouter(PatientRegistration)

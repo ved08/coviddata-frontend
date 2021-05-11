@@ -1,13 +1,13 @@
-import firebase from "firebase"
+import firebase from "firebase/app"
 import "firebase/auth"
 firebase.initializeApp({
-    apiKey: "AIzaSyA_xtriBFdT2gewhLt1j_XKftSqcoiuJJs",
+    apiKey: process.env.API_KEY,
     authDomain: "cfa-coviddata.firebaseapp.com",
     projectId: "cfa-coviddata",
     storageBucket: "cfa-coviddata.appspot.com",
     messagingSenderId: "541721075264",
-    appId: "1:541721075264:web:1dcc8318cbfe3a5c5cc9a5",
-    measurementId: "G-E7Q82H61V2"
+    appId: process.env.APP_ID,
+    measurementId: process.env.MEASUREMENT_ID
 })
 
 class Auth {

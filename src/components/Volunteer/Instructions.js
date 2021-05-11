@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Auth from "../../auth"
 import "./common.css"
@@ -8,6 +9,8 @@ const Instr = () => {
             const data = await Auth.onAuthStateChanged();
             await setUser(data)
             await console.log(user)
+            axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", user)
+            // .then()
         }
         fetchData()
     }, [])
