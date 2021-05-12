@@ -37,6 +37,7 @@ class Auth {
                     const confirm = confirmationResult.confirm(code).then(res => {
                         console.log("sucess")
                         this.auth = true
+                        cb()
                     }).catch(err => {
                         alert(err.message)
                     })
@@ -50,7 +51,6 @@ class Auth {
                 this.auth = true
             }
             // this.auth = true
-            cb()
         });
     }
     async onAuthStateChanged() {
