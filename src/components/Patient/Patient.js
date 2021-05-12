@@ -15,6 +15,7 @@ const PatientRegistration = props => {
     const [ requirements, setRequirements ] = useState("")
     const [ spo2, setSpo2 ] = useState("")
     const [resLinks, setResLinks] = useState([]);
+    const [data, setData] = useState({})
 
     const submitHandler = () => {
         if(name && blood && age && hospitalName && state && phn && city && relationship && requirements && spo2) {    
@@ -41,8 +42,10 @@ const PatientRegistration = props => {
                 str = str.join('')
                 str = JSON.parse(str)
                 setResLinks(str)
+                setData(data)
                 console.log(str)
                 props.links(str)
+                props.data(data)
                 props.history.push('/patient/links')
             })
             .catch(err => alert(err.message))

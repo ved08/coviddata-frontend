@@ -10,7 +10,9 @@ import Registration from "./components/Volunteer/Registration";
 
 function App() {
   const [links, setLinks] = useState([])
+  const [data, setData] = useState({})
   const getLinks = data => setLinks(data) 
+  const getData = data => setData(data) 
   return (
     <div className="App">
       <Switch>
@@ -18,10 +20,10 @@ function App() {
         <Route path="/auth" exact component={Registration}/>
         <PrivateRoute path="/volunteer" exact component={Instr}/>
         <Route path="/patient/links" exact>
-          <PatientLinks links={links}/>
+          <PatientLinks links={links} data={data}/>
         </Route>
         <Route path="/registration/patient" exact>
-          <PatientRegistration links={getLinks}/>
+          <PatientRegistration links={getLinks} data={getData}/>
         </Route>
       </Switch>
     </div>

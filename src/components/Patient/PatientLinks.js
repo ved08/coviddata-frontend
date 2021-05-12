@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom"
 import "./PatientLinks.css"
 const PatientLinks = (props) => {
-    const links = props.links;
-    console.log(links)
+    const { links, data } = props
+    console.log(links, data)
+    const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
+    const imageUrl = `https://rophyllo.sirv.com/Images/a4-paper.jpg?text=Urgent%20Help%20Needed%0A%0A%0A%0A%0AName:%20${name}%0Aage:%20${age}%0Arequirements:%20${requirements}%0Arelationship:%20${relationship}%0Ablood:%20${blood}%0AhospitalName:%20${hospitalName}%0Aspo2:%20${spo2}%0Astate:%20${state}%0Acity:%20${city}%0Aphn:%20${phn}&text.font.size=16px&text.color=black&text.align=left&text.position=center` 
     return(
         <div className="Patient-Links">
             <h2>Links</h2>
@@ -22,7 +24,19 @@ const PatientLinks = (props) => {
                     <li>instruction 4</li>
                 </ul>
             </ul>
-            <button>Share</button>
+            <button onClick={async () => {
+                if(navigator.share) {
+                    // share feature available
+                    await navigator.share({
+                        title: "Title",
+                        url: imageUrl,
+                        text: "Urgent Help Needed"
+                    })
+                } else {
+                    console.log("Share option not available")
+                }
+            }}>Share</button>
+            <img src={imageUrl} alt="Image unavailable"/>
         </div>
     );
 }
