@@ -7,9 +7,9 @@ const Instr = () => {
     useEffect(() => {
         const fetchData = async () => {
             const data = await Auth.onAuthStateChanged();
-            await setUser(data)
-            await console.log(user)
-            axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", user)
+            // await setUser(data)
+            await console.log("UseEffect")
+            axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", data)
             // .then()
         }
         fetchData()

@@ -25,15 +25,21 @@ class Auth {
         .then(async result => {
             if(!result.user.phoneNumber) {
                 let phoneNumber = prompt("Provide your phone number");
-                phoneNumber = "+91" + phoneNumber
+                phoneNumber = "+91" + phoneNumber;
+                // firebase.auth().settings.appVerificationDisabledForTesting = true;
                 let appVerifier = await new firebase.auth.RecaptchaVerifier(
                     captchaELem, { size: 'invisible'}
                 )
+                
                 return result.user.linkWithPhoneNumber(phoneNumber, appVerifier)
                 .then(confirmationResult => {
                     var code = prompt("Provide your SMS code")
-                    const confirm = confirmationResult.confirm(code)
-                    this.auth = true
+                    const confirm = confirmationResult.confirm(code).then(res => {
+                        console.log("sucess")
+                        this.auth = true
+                    }).catch(err => {
+                        alert(err.message)
+                    })
                     return confirm
                 }).catch(err => {
                     alert("Something went wrong. Please try again")
