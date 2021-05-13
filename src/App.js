@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, Link } from "react-router-dom"
 import './App.css';
 import Homepage from "./components/Homepage/Homepage";
 import PatientRegistration from "./components/Patient/Patient";
@@ -7,6 +7,8 @@ import PatientLinks from "./components/Patient/PatientLinks";
 import PrivateRoute from "./components/PrivateRoute";
 import Instr from "./components/Volunteer/Instructions";
 import Registration from "./components/Volunteer/Registration";
+
+import CfaLogo from "./assets/codingforall.png";
 
 function App() {
   const [links, setLinks] = useState([])

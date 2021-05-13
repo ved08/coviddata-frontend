@@ -92,10 +92,12 @@ class Auth {
                   let name;
                   await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/name/verify", { uid })
                   .then(res => {
-                      if(res.data == "NO NAME") {
+                      console.log(res.data)
+                      if(res.data == "No Name" || res.data == "") {
                           name = prompt("Enter your Name")
                       }
                   })
+                  await console.log(name)
                   await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", {
                       name,
                       phoneNumber,

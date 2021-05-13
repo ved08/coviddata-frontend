@@ -17,30 +17,30 @@
   text-align: left;
   font-size: 16px;
 }
-.Login-btn {
-  margin-top: 30px;
-  width: 230px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid grey;
-  box-shadow: 2px 2px 10px #888888;
-  cursor: pointer;
-}
-.Login-btn:hover {
-  box-shadow: none;
-  transition: 0.5;
-}
-
-.Login-btn div {
-  background: transparent;
+.Auth-container {
+  margin-top: 25px;
+  height: 100px;
   width: 100%;
-  height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
-.Login-btn p {
-  text-align: center;
-  width: 70%;
-  color: #777777;
+.Phone-Num {
+  width: 250px;
+  height: 35px;
+  margin: none;
+  font-size: 15px;
+}
+#recaptcha-container {
+  width: 257px;
+  height: 40px;
+  font-size: 15px;
+  background-color: var(--cfa-blue);
+  color: white;
+  border: none;
+}
+#recaptcha-container:hover {
+  background-color: var(--btn-hover);
+  transition: 0.7s;
 }

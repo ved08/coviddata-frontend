@@ -4,7 +4,7 @@ const PatientLinks = (props) => {
     const { links, data } = props
     // console.log(links, data)
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
-    const imageUrl = `https://rophyllo.sirv.com/Images/a4-paper.jpg?text=Urgent%20Help%20Needed%0A%0A%0A%0A%0AName:%20${name}%0Aage:%20${age}%0Arequirements:%20${requirements}%0Arelationship:%20${relationship}%0Ablood:%20${blood}%0AhospitalName:%20${hospitalName}%0Aspo2:%20${spo2}%0Astate:%20${state}%0Acity:%20${city}%0Aphn:%20${phn}&text.font.size=16px&text.color=black&text.align=left&text.position=center` 
+    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Urgent%20Help%20Needed%0A%0A%0A%0A%0AName:%20${name}%0Aage:%20${age}%0Arequirements:%20${requirements}%0Arelationship:%20${relationship}%0Ablood:%20${blood}%0AhospitalName:%20${hospitalName}%0Aspo2:%20${spo2}%0Astate:%20${state}%0Acity:%20${city}%0Aphn:%20${phn}&text.font.size=16px&text.color=black&text.align=left&text.position=center` 
     
     const convertToBase64 = (img) => {
         // img.crossOrigin = 'Anonymous';
@@ -58,7 +58,7 @@ const PatientLinks = (props) => {
                     console.log("Share option not available")
                 }
             }}>Share</button>
-            <img id="share-image" src={imageUrl} alt="Image unavailable"/>
+            <img className="Image-poster" id="share-image" src={imageUrl} alt="Image unavailable"/>
         </div>
     );
 }
