@@ -17,6 +17,7 @@
   background-color: var(--cfa-blue);
   color: white;
   border: none;
+  margin: 5px;
 }
 .Homepage button:hover {
   background-color: var(--btn-hover);
