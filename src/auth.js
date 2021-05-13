@@ -1,18 +1,19 @@
 import firebase from "firebase/app"
 import "firebase/auth"
 import * as dotenv from "dotenv";
+import axios from "axios"
 import path from "path";
 dotenv.config({ path: path.join(__dirname,'../.env') });
 
-firebase.initializeApp({
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: "cfa-coviddata.firebaseapp.com",
-    projectId: "cfa-coviddata",
-    storageBucket: "cfa-coviddata.appspot.com",
-    messagingSenderId: "541721075264",
-    appId: process.env.REACT_APP_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID
-})
+// firebase.initializeApp({
+//     apiKey: process.env.REACT_APP_API_KEY,
+//     authDomain: "cfa-coviddata.firebaseapp.com",
+//     projectId: "cfa-coviddata",
+//     storageBucket: "cfa-coviddata.appspot.com",
+//     messagingSenderId: "541721075264",
+//     appId: process.env.REACT_APP_APP_ID,
+//     measurementId: process.env.REACT_APP_MEASUREMENT_ID
+// })
 
 class Auth {
     constructor() {
@@ -43,7 +44,7 @@ class Auth {
                     })
                     return confirm
                 }).catch(err => {
-                    alert("Something went wrong. Please try again")
+                    alert(err.message)
                     console.log(err)
                 })
             }
@@ -71,6 +72,46 @@ class Auth {
     logout() {
         firebase.auth().signOut()
         this.auth = false
+    }
+
+
+    loginWithPhone = (phoneNumber, cb) => {
+        if(phoneNumber) {
+            const appVerifier = window.recaptchaVerifier;
+            firebase
+            .auth()
+            .signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then(confirmResult => {
+              // success
+              const code = prompt("Enter code")
+              confirmResult.confirm(code)
+              .then(async res => {
+                  const { user } = res;
+                  const { uid } = user;
+                  this.auth = true
+                  let name;
+                  await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/name/verify", { uid })
+                  .then(res => {
+                      if(res.data == "NO NAME") {
+                          name = prompt("Enter your Name")
+                      }
+                  })
+                  await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", {
+                      name,
+                      phoneNumber,
+                      uid
+                  }).then(res => {
+                      console.log(res.data)
+                      cb()
+                  }).catch(err => alert(err.message))
+                  console.log(user)
+              }).catch(err => alert(err.message))
+            })
+            .catch(error => {
+              // error
+              console.log({error})
+            });
+        } else alert("All fields are necessary")
     }
 }
 
