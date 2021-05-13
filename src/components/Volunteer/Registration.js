@@ -5,25 +5,25 @@ import "./common.css"
 import firebase from "firebase/app"
 import "firebase/auth"
 import HeaderComp from "../HeaderComp"
-// firebase.initializeApp({
-//     apiKey: process.env.REACT_APP_API_KEY,
-//     authDomain: "cfa-coviddata.firebaseapp.com",
-//     projectId: "cfa-coviddata",
-//     storageBucket: "cfa-coviddata.appspot.com",
-//     messagingSenderId: "541721075264",
-//     appId: process.env.REACT_APP_APP_ID,
-//     measurementId: process.env.REACT_APP_MEASUREMENT_ID
-// })
+firebase.initializeApp({
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: "cfa-coviddata.firebaseapp.com",
+    projectId: "cfa-coviddata",
+    storageBucket: "cfa-coviddata.appspot.com",
+    messagingSenderId: "541721075264",
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+})
 
 const Registration = (props) => {
     const [ phoneNumber, setPhoneNumber ] = useState("")
-    // useEffect(() => {
-    //     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container",
-    //     {
-    //        size:"invisible"
-    //         // other options
-    //     });
-    // }, [])
+    useEffect(() => {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container",
+        {
+           size:"invisible"
+            // other options
+        });
+    }, [])
     const onClick = () => {
         Auth.loginWithPhone(phoneNumber, () => {
             props.history.push("/volunteer")
