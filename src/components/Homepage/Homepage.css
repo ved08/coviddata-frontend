@@ -2,14 +2,6 @@
   --cfa-blue: #3c7ec8;
   --btn-hover: #6e6968;
 }
-.image-container {
-  width: 100%;
-  text-align: left;
-}
-.image-container img {
-  width: 100px;
-  margin: 20px;
-}
 .Homepage button {
   width: 257px;
   height: 40px;
@@ -22,10 +14,6 @@
 .Homepage button:hover {
   background-color: var(--btn-hover);
   transition: 0.7s;
-}
-.Homepage a {
-  text-decoration: none;
-  color: #f8c608;
 }
 .Homepage-link {
   text-decoration: none;

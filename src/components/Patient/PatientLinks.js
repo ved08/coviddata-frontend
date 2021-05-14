@@ -6,7 +6,7 @@ const PatientLinks = (props) => {
     const { links, data } = props
     // console.log(links, data)
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
-    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0AAge:%20${age}%0ARequirements:%20${requirements}%0ARelationship:%20${relationship}%0ABlood%20Group:%20${blood}%0AHospital%20Name:%20${hospitalName}%0ASPO2:%20${spo2}%0AState:%20${state}%0ACity:%20${city}%0APhone%20Number:%20${phn}&text.font.size=40&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans&text.font.weight=600` 
+    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0ABlood%20Group:%20${blood}%0AAge:%20${age}%0AState:%20${state}%0AHospital%20Name:%20${hospitalName}%0ACity:%20${city}%0APhone%20Number:%20${phn}%0AResources%20Required:%20${requirements}%0ASPO2:%20${spo2}&text.font.size=40&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans&text.font.weight=600` 
     
     const convertToBase64 = () => {
         let base64URL = "";
@@ -23,8 +23,8 @@ const PatientLinks = (props) => {
                 {links.length ? links.map((e, i) => (
                     <li key={i}>{e}</li>
                 )) : <div>
-                        <p>Links not available. Please Register</p>
-                        <Link className="Register-Link" to="/registration/patient"><button>Register</button></Link>
+                        <p>Links not available. Please register first</p>
+                        <Link className="Register-Link" to="/registration/patient"><button className="Btn">Register</button></Link>
                     </div>
                 }
                 <h2>Instructions</h2>
@@ -35,21 +35,29 @@ const PatientLinks = (props) => {
                     <li>instruction 4</li>
                 </ul>
             </ul>
-            <button className="Share-btn" onClick={async () => {
-                if(navigator.share) {
-                    const base64url = convertToBase64(document.getElementById("share-image"));
-                    const blob = await (await fetch(base64url)).blob();
-                    const file = new File([blob], 'fileName.png', { type: blob.type });
-                    await navigator.share({
-                    title: "Share on Social Media",
-                    text: 'Image caption here',
-                    files: [file],
-                    })
-                } else {
-                    alert("Share option not available.")
-                }
-            }}>Share</button>
-            <img className="Image-poster" id="share-image" src={imageUrl} alt="Image unavailable"/>
+            <div className="Share-container">
+                <div className="Image-container">
+                    <img className="Image-poster" id="share-image" src={imageUrl} alt="Image unavailable"/>
+                </div>
+                <div className="Share-btn-container">
+                    <p className="Share-btn-p">Some content related to sharing option. Where to share, who to share, what are the tags and who to mention. etc, etc. Any other content related to this goes here.</p>
+                    <button className="Btn" onClick={async () => {
+                        if(navigator.share) {
+                            const base64url = convertToBase64(document.getElementById("share-image"));
+                            const blob = await (await fetch(base64url)).blob();
+                            const file = new File([blob], 'fileName.png', { type: blob.type });
+                            await navigator.share({
+                            title: "Share on Social Media",
+                            text: 'Image caption here',
+                            files: [file],
+                            })
+                        } else {
+                            alert("Share option not available.")
+                        }
+                    }}>Share</button>
+                </div>
+            </div>
+            
         </div>
     );
 }

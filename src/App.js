@@ -7,8 +7,8 @@ import PatientLinks from "./components/Patient/PatientLinks";
 import PrivateRoute from "./components/PrivateRoute";
 import Instr from "./components/Volunteer/Instructions";
 import Registration from "./components/Volunteer/Registration";
+import VolunteerPatient from "./components/Volunteer/Volunteer-patient";
 
-import CfaLogo from "./assets/codingforall.png";
 
 function App() {
   const [links, setLinks] = useState([])
@@ -21,6 +21,7 @@ function App() {
         <Route path="/" exact component={Homepage}/>
         <Route path="/auth" exact component={Registration}/>
         <PrivateRoute path="/volunteer" exact component={Instr}/>
+        <PrivateRoute path="/patient-data" exact component={VolunteerPatient}/>
         <Route path="/patient/links" exact>
           <PatientLinks links={links} data={data}/>
         </Route>

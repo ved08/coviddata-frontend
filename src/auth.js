@@ -78,17 +78,17 @@ class Auth {
                   const { user } = res;
                   const { uid } = user;
                   this.auth = true
-                  let name;
+                  let name = "";
                   await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/name/verify", { uid })
                   .then(res => {
-                      console.log(res.data)
+                      console.log(res.data, "what?")
                       if(res.data == "No Name" || res.data == "") {
                           name = prompt("Enter your Name")
                       }
                   })
                   await console.log(name)
                   await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", {
-                      name,
+                      displayName: name,
                       phoneNumber,
                       uid
                   }).then(res => {

@@ -1,13 +1,42 @@
+.Patient-Links {
+  width: 100%;
+}
 .Patient-Links ul {
   text-align: left;
 }
 .Register-Link {
   text-decoration: none;
 }
-.Image-poster {
-  width: 450px;
+.Share-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.Share-btn {
+.Image-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Image-poster {
+  width: 70%;
+}
+.Share-btn-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: 100px;
+}
+.Share-btn-p {
+  width: 500px;
+  text-align: left;
+}
+.Btn {
   width: 257px;
   height: 40px;
   font-size: 15px;
@@ -16,7 +45,7 @@
   border: none;
 }
 
-.Share-btn:hover {
+.Btn:hover {
   background-color: var(--btn-hover);
   transition: 0.7s;
 }

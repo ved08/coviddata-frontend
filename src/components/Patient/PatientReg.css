@@ -1,0 +1,35 @@
+.Patient {
+  width: 100%;
+}
+.Registration-field {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.Registration-field label {
+  width: 200px;
+  text-align: left;
+}
+.Registration-field select,
+.Registration-field input {
+  width: 257px;
+  height: 40px;
+  font-size: 16px;
+}
+.Registration-field select {
+  width: 265px;
+}
+@media (max-width: 800px) {
+  .Registration-field {
+    justify-content: space-around;
+  }
+  .Registration-field label {
+    width: 100px;
+  }
+  .Registration-field select,
+  .Registration-field input {
+    width: 180px;
+  }
+}
