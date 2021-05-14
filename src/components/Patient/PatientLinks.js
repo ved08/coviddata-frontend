@@ -1,27 +1,24 @@
 import { Link } from "react-router-dom"
+import imageToBase64 from "image-to-base64/browser" 
+import HeaderComp from "../HeaderComp";
 import "./PatientLinks.css"
 const PatientLinks = (props) => {
     const { links, data } = props
     // console.log(links, data)
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
-    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Urgent%20Help%20Needed%0A%0A%0A%0A%0AName:%20${name}%0Aage:%20${age}%0Arequirements:%20${requirements}%0Arelationship:%20${relationship}%0Ablood:%20${blood}%0AhospitalName:%20${hospitalName}%0Aspo2:%20${spo2}%0Astate:%20${state}%0Acity:%20${city}%0Aphn:%20${phn}&text.font.size=16px&text.color=black&text.align=left&text.position=center` 
+    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0AAge:%20${age}%0ARequirements:%20${requirements}%0ARelationship:%20${relationship}%0ABlood%20Group:%20${blood}%0AHospital%20Name:%20${hospitalName}%0ASPO2:%20${spo2}%0AState:%20${state}%0ACity:%20${city}%0APhone%20Number:%20${phn}&text.font.size=40&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans&text.font.weight=600` 
     
-    const convertToBase64 = (img) => {
-        // img.crossOrigin = 'Anonymous';
-        // let canvas = document.createElement("canvas");
-        // canvas.width = img.width;
-        // canvas.height = img.height;
-        // var ctx = canvas.getContext("2d");
-        // ctx.drawImage(img, 0, 0);
-        // var dataURL = canvas.toDataURL("image/png")
-        // console.log(dataURL)
-        // return dataURL
-        console.log("Hello world")
-        // return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    const convertToBase64 = () => {
+        let base64URL = "";
+        imageToBase64(imageUrl).then(res => {
+            base64URL = "data:image/png;base64,".concat(res);
+        })
+        return base64URL
     }
     return(
         <div className="Patient-Links">
-            <h2>Links</h2>
+            <HeaderComp />
+            <h1>Links</h1>
             <ul>
                 {links.length ? links.map((e, i) => (
                     <li key={i}>{e}</li>
@@ -38,7 +35,7 @@ const PatientLinks = (props) => {
                     <li>instruction 4</li>
                 </ul>
             </ul>
-            <button onClick={async () => {
+            <button className="Share-btn" onClick={async () => {
                 if(navigator.share) {
                     const base64url = convertToBase64(document.getElementById("share-image"));
                     const blob = await (await fetch(base64url)).blob();
@@ -48,14 +45,8 @@ const PatientLinks = (props) => {
                     text: 'Image caption here',
                     files: [file],
                     })
-                    // share feature available
-                    // await navigator.share({
-                    //     title: "Title",
-                    //     url: imageUrl,
-                    //     text: "Urgent Help Needed"
-                    // })
                 } else {
-                    console.log("Share option not available")
+                    alert("Share option not available.")
                 }
             }}>Share</button>
             <img className="Image-poster" id="share-image" src={imageUrl} alt="Image unavailable"/>

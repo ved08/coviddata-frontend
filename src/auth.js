@@ -1,19 +1,8 @@
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from "./firebase"
 import * as dotenv from "dotenv";
 import axios from "axios"
 import path from "path";
-dotenv.config({ path: path.join(__dirname,'../.env') });
 
-// firebase.initializeApp({
-//     apiKey: process.env.REACT_APP_API_KEY,
-//     authDomain: "cfa-coviddata.firebaseapp.com",
-//     projectId: "cfa-coviddata",
-//     storageBucket: "cfa-coviddata.appspot.com",
-//     messagingSenderId: "541721075264",
-//     appId: process.env.REACT_APP_APP_ID,
-//     measurementId: process.env.REACT_APP_MEASUREMENT_ID
-// })
 
 class Auth {
     constructor() {
@@ -111,7 +100,7 @@ class Auth {
             })
             .catch(error => {
               // error
-              console.log({error})
+              alert(error.message)
             });
         } else alert("All fields are necessary")
     }

@@ -1,6 +1,22 @@
-.Patient-Links {
+.Patient-Links ul {
   text-align: left;
 }
 .Register-Link {
   text-decoration: none;
+}
+.Image-poster {
+  width: 450px;
+}
+.Share-btn {
+  width: 257px;
+  height: 40px;
+  font-size: 15px;
+  background-color: var(--cfa-blue);
+  color: white;
+  border: none;
+}
+
+.Share-btn:hover {
+  background-color: var(--btn-hover);
+  transition: 0.7s;
 }

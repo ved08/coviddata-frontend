@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Auth from "../../auth"
+import HeaderComp from "../HeaderComp";
 import "./common.css"
 const Instr = () => {
     const [user, setUser] = useState({})
@@ -16,6 +17,7 @@ const Instr = () => {
     }, [])
     return(
         <div className="Instr" style={{textAlign: 'left'}}>
+            <HeaderComp />
             <h1>Instructions for {user.displayName}</h1>
             <ul>
                 <li>number 1</li>
