@@ -49,3 +49,25 @@
   background-color: var(--btn-hover);
   transition: 0.7s;
 }
+@media (max-width: 1200px) {
+  .Share-container {
+    flex-direction: column;
+  }
+  .Image-container {
+    width: 100%;
+  }
+  .Image-poster {
+    width: 100%;
+  }
+  .Share-btn-container {
+    margin: 0;
+    margin-top: 20px;
+    width: fit-content;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+  .Share-btn-p {
+    width: 200px;
+  }
+}

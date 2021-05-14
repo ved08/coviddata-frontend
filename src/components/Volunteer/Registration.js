@@ -4,9 +4,11 @@ import { FcGoogle } from "react-icons/fc"
 import firebase from "../../firebase"
 import "./common.css"
 import HeaderComp from "../HeaderComp"
+import { load } from "dotenv"
 
 const Registration = (props) => {
-    const [ phoneNumber, setPhoneNumber ] = useState("")
+    const [ phoneNumber, setPhoneNumber ] = useState("");
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container",
         {
@@ -15,7 +17,9 @@ const Registration = (props) => {
         });
     }, [])
     const onClick = () => {
+        setLoading(true)
         Auth.loginWithPhone(phoneNumber, () => {
+            setLoading(false)
             props.history.push("/volunteer")
         })
         
@@ -32,9 +36,10 @@ const Registration = (props) => {
                 <input className="Phone-Num" type="number" placeholder="Enter phone number" onChange={e => {
                     setPhoneNumber("+91" + e.target.value)
                 }}/>
+                {loading && <p>Loading...</p>}
                 <input style={{
                     marginBottom: "20px"
-                }} id="recaptcha-container" value="Get OTP" type="button" onClick={onClick} />
+                }} id="recaptcha-container" value="Get OTP" type="button" onClick={() => onClick()} />
             </div>
         </div>
     );

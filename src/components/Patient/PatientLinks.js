@@ -7,14 +7,6 @@ const PatientLinks = (props) => {
     // console.log(links, data)
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
     const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0ABlood%20Group:%20${blood}%0AAge:%20${age}%0AState:%20${state}%0AHospital%20Name:%20${hospitalName}%0ACity:%20${city}%0APhone%20Number:%20${phn}%0AResources%20Required:%20${requirements}%0ASPO2:%20${spo2}&text.font.size=40&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans&text.font.weight=600` 
-    
-    const convertToBase64 = () => {
-        let base64URL = "";
-        imageToBase64(imageUrl).then(res => {
-            base64URL = "data:image/png;base64,".concat(res);
-        })
-        return base64URL
-    }
     return(
         <div className="Patient-Links">
             <HeaderComp />
@@ -43,12 +35,12 @@ const PatientLinks = (props) => {
                     <p className="Share-btn-p">Some content related to sharing option. Where to share, who to share, what are the tags and who to mention. etc, etc. Any other content related to this goes here.</p>
                     <button className="Btn" onClick={async () => {
                         if(navigator.share) {
-                            const base64url = convertToBase64(document.getElementById("share-image"));
-                            const blob = await (await fetch(base64url)).blob();
+                            const blob = await fetch(imageUrl).then(r=>r.blob())
                             const file = new File([blob], 'fileName.png', { type: blob.type });
+                            console.log({file})
                             await navigator.share({
                             title: "Share on Social Media",
-                            text: 'Image caption here',
+                            text: 'Urgent Help Needed!',
                             files: [file],
                             })
                         } else {
