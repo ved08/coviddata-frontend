@@ -52,3 +52,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.VP-Filter-container table {
+  text-align: left;
+}
