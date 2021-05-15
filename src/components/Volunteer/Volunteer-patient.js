@@ -41,6 +41,7 @@ const VolunteerPatient = () => {
                 </select>
                 <button className="Btn" onClick={getPatientData}>Get Data</button>
             </div>
+            <div className="Table-container">
                 {data && <table>
                     <thead>
                         <th>Patient's Name</th>
@@ -67,6 +68,7 @@ const VolunteerPatient = () => {
                         </tbody>
                     ))}
                 </table>}
+            </div>
         </div>
     )
 }
