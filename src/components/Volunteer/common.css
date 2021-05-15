@@ -12,10 +12,10 @@
   align-items: center;
 }
 .Registration-content {
-  width: 70%;
+  width: 60%;
   margin: 0;
-  text-align: left;
-  font-size: 16px;
+  text-align: center;
+  font-size: 20px;
 }
 .Auth-container {
   margin-top: 25px;

@@ -64,7 +64,7 @@ class Auth {
     }
 
 
-    loginWithPhone = (phoneNumber, cb) => {
+    loginWithPhone = (phoneNumber, cb, err) => {
         if(phoneNumber) {
             const appVerifier = window.recaptchaVerifier;
             firebase
@@ -96,10 +96,14 @@ class Auth {
                       cb()
                   }).catch(err => alert(err.message))
                   console.log(user)
-              }).catch(err => alert(err.message))
+              }).catch(err => {
+                  err()
+                  alert(err.message)
+                })
             })
             .catch(error => {
               // error
+              err()
               alert(error.message)
             });
         } else alert("All fields are necessary")

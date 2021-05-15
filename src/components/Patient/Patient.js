@@ -107,9 +107,9 @@ const PatientRegistration = props => {
                     {/* <option value="Jammu and Kashmir">Jammu and Kashmir</option> */}
                     {/* <option value="Jharkhand">Jharkhand</option> */}
                     <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
+                    {/* <option value="Kerala">Kerala</option> */}
                     {/* <option value="Madhya Pradesh">Madhya Pradesh</option> */}
-                    {/* <option value="Maharashtra">Maharashtra</option> */}
+                    <option value="Maharashtra">Maharashtra</option>
                     {/* <option value="Manipur">Manipur</option> */}
                     {/* <option value="Meghalaya">Meghalaya</option> */}
                     {/* <option value="Mizoram">Mizoram</option> */}
@@ -152,8 +152,10 @@ const PatientRegistration = props => {
                 <select onChange={e => setRequirements(e.target.value)}>
                     <option disabled hidden selected>Select</option>
                     <option value="Oxygen Cylinder">Oxygen Cylinder</option>
-                    <option value="Blood Donation">Blood Donation</option>
-                    <option value="Oxygen Cylinder">Oxygen Cylinder</option>
+                    <option value="Beds">Beds</option>
+                    <option value="Plasma">Plasma</option>
+                    <option value="Ventilators">Ventilators</option>
+                    <option value="Remdesivir">Remdesivir</option>
                 </select>
             </div>
             <div className="Registration-field">

@@ -21,6 +21,8 @@ const Registration = (props) => {
         Auth.loginWithPhone(phoneNumber, () => {
             setLoading(false)
             props.history.push("/volunteer")
+        }, () => {
+            setLoading(false)
         })
         
     }
@@ -29,7 +31,8 @@ const Registration = (props) => {
             <HeaderComp />
             <header>
                 <h1>Volunteer Registration</h1>
-                <p className="Registration-content">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design. Lorem ipsum is typically a corrupted version of 'De finibus bonorum et malorum', a 1st century BC text by the Roman statesman and philosopher Cicero, with words altered, added, and removed to make it nonsensical and improper Latin. Versions of the Lorem ipsum text have been.</p>
+                <p 
+                className="Registration-content">Dear Supporter we are glad that you wish to help people in need. Our database shows the requirements posted in last 24 hours by people who need covid support/help.</p>
                 <div id="verify"></div>
             </header>
             <div className="Auth-container">

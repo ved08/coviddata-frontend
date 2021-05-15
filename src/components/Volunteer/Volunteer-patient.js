@@ -2,33 +2,25 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import HeaderComp from "../HeaderComp"
 import "./common.css"
-
+navigator.share = false
 const VolunteerPatient = () => {
     const [ selectedState, setSelectedState ] = useState("");
+    const [requirements, setRequirement] = useState("")
     const [ data, setData ] = useState([])
     const getPatientData = () => {
         axios.post("https://coviddata.vedvardhan.repl.co/datapatients", {
-            state: selectedState
+            state: selectedState,
+            requirements
         }).then(res => {
             const { data } = res;
-            let str = data.split("")
-                for (let i = 0; i <= str.length; i++) {
-                    if(str[i] == "'") {
-                        if(str[i+1] !== 's') {
-                            str[i] = '"'
-                        }
-                    }
-                }
-                str = str.join("")
-                // console.log(str)
-                str = JSON.parse(str)
-                setData(str)
-        })
+            const JSONData = eval(data)
+            setData(JSONData)
+        }).catch(err => alert(err.message))
     }
     return(
         <div className="Volunteer-Patient">
             <HeaderComp />
-            <div class="VP-Filter-container">
+            <div className="VP-Filter-container">
                 <select style={{
                     width: "257px",
                     height: "40px"
@@ -36,8 +28,26 @@ const VolunteerPatient = () => {
                     <option hidden disabled selected>Select</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     <option value="Karnataka">Karnataka</option>
-                    <option value="Tamin Nadu">Tamin Nadu</option>
+                    <option value="Tamin Nadu">Tamil Nadu</option>
                     <option value="Telangana">Telangana</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                </select>
+                <select style={{
+                    width: "257px",
+                    height: "40px"
+                }} onChange={e => {
+                    if (e.target.value == "Other") {
+                        const data = prompt("Specify your requirement")
+                        setRequirement(data)
+                    } else setRequirement(e.target.value)                   
+                }}>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Oxygen Cylinder">Oxygen</option>
+                    <option value="Beds">Beds</option>
+                    <option value="Plasma">Plasma</option>
+                    <option value="Ventilators">Ventilators</option>
+                    <option value="Remdesivir">Remdesivir</option>
+                    <option value="Other">Other</option>
                 </select>
                 <button className="Btn" onClick={getPatientData}>Get Data</button>
             </div>
