@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import HeaderComp from "../HeaderComp"
 import "./common.css"
-navigator.share = false
 const VolunteerPatient = () => {
     const [ selectedState, setSelectedState ] = useState("");
     const [requirements, setRequirement] = useState("")

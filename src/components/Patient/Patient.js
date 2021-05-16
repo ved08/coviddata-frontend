@@ -34,17 +34,9 @@ const PatientRegistration = props => {
             }
             axios.post("https://coviddata.vedvardhan.repl.co/resources", data)
             .then(res => {
-                let str = res.data.split("")
-                for (let i = 0; i <= str.length; i++) {
-                    if(str[i] == "'") {
-                        str[i] = '"'
-                    }
-                }
-                str = str.join('')
-                str = JSON.parse(str)
+                const str = eval(res.data)
                 setResLinks(str)
                 setData(data)
-                console.log(str)
                 props.links(str)
                 props.data(data)
                 props.history.push('/patient/links')
@@ -154,7 +146,6 @@ const PatientRegistration = props => {
                     <option value="Oxygen Cylinder">Oxygen Cylinder</option>
                     <option value="Beds">Beds</option>
                     <option value="Plasma">Plasma</option>
-                    <option value="Ventilators">Ventilators</option>
                     <option value="Remdesivir">Remdesivir</option>
                 </select>
             </div>

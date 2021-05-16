@@ -3,7 +3,8 @@ import imageToBase64 from "image-to-base64/browser"
 import HeaderComp from "../HeaderComp";
 import "./PatientLinks.css"
 const PatientLinks = (props) => {
-    const { links, data } = props
+    const { links, data } = props;
+    console.log(links)
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
     const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0ABlood%20Group:%20${blood}%0AAge:%20${age}%0AState:%20${state}%0AHospital%20Name:%20${hospitalName}%0ACity:%20${city}%0APhone%20Number:%20${phn}%0AResources%20Required:%20${requirements}%0ASPO2:%20${spo2}&text.font.size=40&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans&text.font.weight=600` 
     return(
@@ -12,7 +13,7 @@ const PatientLinks = (props) => {
             <h1>Links</h1>
             <ul>
                 {links.length ? links.map((e, i) => (
-                    <li key={i}>{e}</li>
+                    <li key={i}><a href={e}>{e}</a></li>
                 )) : <div>
                         <p>Links not available. Please register first</p>
                         <Link className="Register-Link" to="/registration/patient"><button className="Btn">Register</button></Link>
