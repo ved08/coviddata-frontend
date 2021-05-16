@@ -45,7 +45,7 @@ const PatientLinks = (props) => {
                 {links.length ? (
                     <div>
                         <h2>Resources</h2>
-                        <a href={links[index]}>Link here</a>
+                        <a href={links[index]} target="_blank">Link here</a>
                         <h2>Support Groups</h2>
                         <a href={links[4]}>Link here</a>
                     </div>
