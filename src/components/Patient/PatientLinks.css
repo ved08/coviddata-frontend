@@ -4,6 +4,9 @@
 .Patient-Links ul {
   text-align: left;
 }
+.Patient-Links ul li {
+  word-wrap: break-word;
+}
 .Register-Link {
   text-decoration: none;
 }
