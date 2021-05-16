@@ -11,7 +11,7 @@ return(
             <img src={CfaLogo} style={{
                 marginBottom: 0,
                 width: "150px",
-                marginTop: "20px"
+                marginTop: "-10px"
             }}/>
         </Link>
         <header>
