@@ -21,7 +21,9 @@ function App() {
         <Route path="/" exact component={Homepage}/>
         <Route path="/auth" exact component={Registration}/>
         <PrivateRoute path="/volunteer" exact component={Instr}/>
-        <PrivateRoute path="/patient-data" exact component={VolunteerPatient}/>
+        <Route path="/patient-data" exact>
+          <VolunteerPatient links={getLinks} data={getData}/>
+        </Route>
         <Route path="/patient/links" exact>
           <PatientLinks links={links} data={data}/>
         </Route>

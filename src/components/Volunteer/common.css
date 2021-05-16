@@ -58,22 +58,19 @@
 }
 .Table-container {
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: 20px;
-  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: visible;
 }
 thead {
   background-color: var(--cfa-blue);
   color: black;
 }
-tbody {
+tr {
   background-color: white;
   color: black;
 }
-tr {
+.tr {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   place-items: center;
@@ -88,4 +85,11 @@ th {
 td {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.Help-btn {
+  color: var(--cfa-blue);
+  text-decoration: underline;
+  background-color: #fff;
+  border: none;
+  width: 50px;
 }

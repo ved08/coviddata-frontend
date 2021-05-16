@@ -5,21 +5,21 @@ import "./PatientReg.css"
 import HeaderComp from "../HeaderComp";
 
 const PatientRegistration = props => {
-    const [ name, setName ] = useState("")
-    const [ blood, setBlood ] = useState("")
+    const [ name, setName ] = useState("N.A.")
+    const [ blood, setBlood ] = useState("N.A.")
     const [ age, setAge ] = useState(0)
-    const [ hospitalName, setHospitalName ] = useState("")
-    const [ state, setState ] = useState("")
-    const [ city, setCity ] = useState("")
-    const [ phn, setPhn ] = useState("")
-    const [ relationship, setRelationship ] = useState("")
-    const [ requirements, setRequirements ] = useState("")
-    const [ spo2, setSpo2 ] = useState("")
+    const [ hospitalName, setHospitalName ] = useState("N.A.")
+    const [ state, setState ] = useState("N.A.")
+    const [ city, setCity ] = useState("N.A.")
+    const [ phn, setPhn ] = useState("N.A.")
+    const [ relationship, setRelationship ] = useState("N.A.")
+    const [ requirements, setRequirements ] = useState("N.A.")
+    const [ spo2, setSpo2 ] = useState("N.A.")
     const [resLinks, setResLinks] = useState([]);
     const [data, setData] = useState({})
 
     const submitHandler = () => {
-        if(name && blood && age && hospitalName && state && phn && city && relationship && requirements && spo2) {    
+        if(name && state && requirements && phn && age) {    
             let data = {
                 "name": name, 
                 "blood": blood, 
@@ -42,7 +42,7 @@ const PatientRegistration = props => {
                 props.history.push('/patient/links')
             })
             .catch(err => alert(err.message))
-        } else alert("All fields are required")
+        } else alert("Please fill the required fields")
     }
 
     return(
@@ -54,7 +54,7 @@ const PatientRegistration = props => {
                 <input type="text" onChange={e => setName(e.target.value)} />
             </div>
             <div className="Registration-field">
-                <label>Blood Group</label>
+                <label>Blood Group(optional)</label>
                 <select onChange={e => setBlood(e.target.value)}>
                     <option disabled hidden selected>Select</option>
                     <option value="A+">A+</option>
@@ -73,7 +73,7 @@ const PatientRegistration = props => {
                 <input type="number" onChange={e => setAge(e.target.value)} />
             </div>
             <div className="Registration-field">
-                <label>Hospital Name</label>
+                <label>Hospital Name(optional)</label>
                 <input onChange={e => setHospitalName(e.target.value)}/>
             </div>
             <div className="Registration-field">
@@ -119,7 +119,7 @@ const PatientRegistration = props => {
                 </select>
             </div>
             <div className="Registration-field">
-                <label>City</label>
+                <label>City(optional)</label>
                 <input onChange={e => setCity(e.target.value)}/>
             </div>
             <div className="Registration-field">
@@ -136,7 +136,7 @@ const PatientRegistration = props => {
                 />
             </div>
             <div className="Registration-field">
-                <label>Relationship with patient</label>
+                <label>Relation with patient(optional)</label>
                 <input onChange={e => setRelationship(e.target.value)}/>
             </div>
             <div className="Registration-field">
@@ -150,8 +150,8 @@ const PatientRegistration = props => {
                 </select>
             </div>
             <div className="Registration-field">
-                <label>spO<sub>2</sub> Level</label>
-                <input onChange={e => setSpo2(e.target.value)}/>
+                <label>spO<sub>2</sub> Level(optional)</label>
+                <input type="number" onChange={e => setSpo2(e.target.value)}/>
             </div>
             <button style={{
                 marginTop: "10px",

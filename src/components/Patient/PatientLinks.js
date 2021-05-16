@@ -26,12 +26,13 @@ const PatientLinks = (props) => {
             index: 3
         },
     }
-    console.log(requirements)
+    console.log("sfrdvr")
     let linkLogic = () => {
         if(links.length) {
-            if(requirements == indexes[requirements].name) {
-                console.log(indexes[requirements])
-                return indexes[requirements].index
+            console.log(indexes)
+            if(requirements.split(" ").shift() == indexes[requirements.split(" ").shift()].name) {
+                console.log(indexes[requirements.split(" ").shift()])
+                return indexes[requirements.split(" ").shift()].index
             }
         }
         

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import HeaderComp from "../HeaderComp"
+import { withRouter } from "react-router-dom"
 import "./common.css"
-const VolunteerPatient = () => {
+const VolunteerPatient = props => {
     const [ selectedState, setSelectedState ] = useState("");
     const [requirements, setRequirement] = useState("")
     const [ data, setData ] = useState([])
@@ -15,6 +16,18 @@ const VolunteerPatient = () => {
             const JSONData = eval(data)
             setData(JSONData)
         }).catch(err => alert(err.message))
+    }
+    const help = (data) => {
+        axios.post("https://coviddata.vedvardhan.repl.co/resources", data)
+            .then(res => {
+                const str = eval(res.data)
+                console.log(str)
+                console.log(data)
+                props.links(str)
+                props.data(data)
+                props.history.push('/patient/links')
+            })
+            .catch(err => alert(err.message))
     }
     return(
         <div className="Volunteer-Patient">
@@ -51,7 +64,7 @@ const VolunteerPatient = () => {
                 <button className="Btn" onClick={getPatientData}>Get Data</button>
             </div>
             <div className="Table-container">
-                {data && <table>
+                {data.length ? <table>
                     <thead>
                         <th>Patient's Name</th>
                         <th>Blood Group</th>
@@ -62,24 +75,38 @@ const VolunteerPatient = () => {
                         <th>Phone</th>
                         <th>Requirements</th>
                         <th>spO<sub>2</sub> Level</th>
+                        <th>Help Patient</th>
                     </thead>
-                    {data.map((e, i) => (
-                        <tbody key={i}>
-                            <td>{e["Patient's Name"]}</td>
-                            <td>{e["Blood Group"]}</td>
-                            <td>{e["Age"]}</td>
-                            <td>{e["Hospital"]}</td>
-                            <td>{e["State"]}</td>
-                            <td>{e["City"]}</td>
-                            <td>{e["Phone Number"]}</td>
-                            <td>{e["Requirements"]}</td>
-                            <td>{e["Spo2 level"]}</td>
-                        </tbody>
-                    ))}
-                </table>}
+                    <tbody>
+                        {data.map((e, i) => (
+                            <tr key={i}>
+                                <td>{e["Patient's Name"]}</td>
+                                <td>{e["Blood Group"]}</td>
+                                <td>{e["Age"]}</td>
+                                <td>{e["Hospital"]}</td>
+                                <td>{e["State"]}</td>
+                                <td>{e["City"]}</td>
+                                <td>{e["Phone Number"]}</td>
+                                <td>{e["Requirements"]}</td>
+                                <td>{e["Spo2 level"]}</td>
+                                <td className="spl-td"><button onClick={() => help({
+                                    "name": e["Patient's Name"],
+                                    "age": e["Age"],
+                                    "hospitalName": e["Hospital"],
+                                    "state": e["State"],
+                                    "city": e["City"],
+                                    "phn": e["Phone Number"],
+                                    "requirements": e["Requirements"],
+                                    "spo2": e["Spo2 level"],
+                                    "blood": e["Blood Group"]
+                                })} className="Help-btn">Help</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table> : null}
             </div>
         </div>
     )
 }
 
-export default VolunteerPatient
+export default withRouter(VolunteerPatient)
