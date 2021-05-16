@@ -143,7 +143,7 @@ const PatientRegistration = props => {
                 <label>Requirements</label>
                 <select onChange={e => setRequirements(e.target.value)}>
                     <option disabled hidden selected>Select</option>
-                    <option value="Oxygen Cylinder">Oxygen Cylinder</option>
+                    <option value="Oxygen">Oxygen Cylinder</option>
                     <option value="Beds">Beds</option>
                     <option value="Plasma">Plasma</option>
                     <option value="Remdesivir">Remdesivir</option>
