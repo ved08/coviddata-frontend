@@ -31,59 +31,35 @@ const VolunteerPatient = props => {
             .catch(err => alert(err.message))
     }
     let mobileTable = (
-    <div>
-        <button onClick={() => {
-            setShowContent(prevState => !prevState)
-        }} style={{
-            position: "absolute",
-            right: 0,
-            top: "50%"
-        }}>{showContent ? "Hide data" : "Show more"}</button>
-        <table>
-            <thead>
-                <th>Patient's Name</th>
-                <th>Requirements</th>
-                <th>Age</th>
-                { showContent ?
-                <Fragment>
-                    <th>Blood Group</th>  
-                    <th>Hospital</th>
-                    <th>State</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>spO<sub>2</sub> Level</th>
-                </Fragment> : null}
-            </thead>
-            <tbody>
-                {data.map((e, i) => (
-                    <tr key={i}>
-                        <td style={{textDecoration: "none"}} onClick={() => help({
-                                "name": e["Patient's Name"],
-                                "age": e["Age"],
-                                "hospitalName": e["Hospital"],
-                                "state": e["State"],
-                                "city": e["City"],
-                                "phn": e["Phone Number"],
-                                "requirements": e["Requirements"],
-                                "spo2": e["Spo2 level"],
-                                "blood": e["Blood Group"]
-                        })} className="Help-btn">{e["Patient's Name"]}</td>
-                        <td>{e["Requirements"]}</td>
-                        <td>{e["Age"]}</td>
-                        {showContent ? <Fragment>
-                            <td>{e["Blood Group"]}</td>
-                            <td>{e["Hospital"]}</td>
-                            <td>{e["State"]}</td>
-                            <td>{e["City"]}</td>
-                            <td>{e["Phone Number"]}</td>
-                            
-                            <td>{e["Spo2 level"]}</td>
-                        </Fragment> : null}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    </div>)
+        <div>
+            <table>
+                <thead>
+                    <th>Patient's Name</th>
+                    <th>Age</th>
+                    <th>Requirements</th>
+                </thead>
+                <tbody>
+                    {data.map((e, i) => (
+                        <tr key={i}>
+                            <td style={{textDecoration: "none"}} onClick={() => help({
+                                    "name": e["Patient's Name"],
+                                    "age": e["Age"],
+                                    "hospitalName": e["Hospital"],
+                                    "state": e["State"],
+                                    "city": e["City"],
+                                    "phn": e["Phone Number"],
+                                    "requirements": e["Requirements"],
+                                    "spo2": e["Spo2 level"],
+                                    "blood": e["Blood Group"]
+                            })} className="Help-btn">{e["Patient's Name"]}</td>
+                            <td>{e["Age"]}</td>
+                            <td>{e["Requirements"]}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    )
 
     return(
         <div className="Volunteer-Patient">
@@ -112,14 +88,8 @@ const VolunteerPatient = props => {
                 window.innerWidth > 600 ? <table>
                     <thead>
                         <th>Patient's Name</th>
-                        <th>Blood Group</th>
                         <th>Age</th>
-                        <th>Hospital</th>
-                        <th>State</th>
-                        <th>Address</th>
-                        <th>Phone</th>
                         <th>Requirements</th>
-                        <th>spO<sub>2</sub> Level</th>
                     </thead>
                     <tbody>
                         {data.map((e, i) => (
@@ -135,14 +105,8 @@ const VolunteerPatient = props => {
                                 "spo2": e["Spo2 level"],
                                 "blood": e["Blood Group"]
                             })} className="Help-btn">{e["Patient's Name"]}</td>
-                                <td>{e["Blood Group"]}</td>
                                 <td>{e["Age"]}</td>
-                                <td>{e["Hospital"]}</td>
-                                <td>{e["State"]}</td>
-                                <td>{e["City"]}</td>
-                                <td>{e["Phone Number"]}</td>
                                 <td>{e["Requirements"]}</td>
-                                <td>{e["Spo2 level"]}</td>
                             </tr>
                         ))}
                     </tbody>

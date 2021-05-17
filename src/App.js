@@ -9,6 +9,7 @@ import Instr from "./components/Volunteer/Instructions";
 import Registration from "./components/Volunteer/Registration";
 import VolunteerPatient from "./components/Volunteer/Volunteer-patient";
 import Auth from "./auth"
+import Footer from "./components/Footer";
 
 
 function App() {

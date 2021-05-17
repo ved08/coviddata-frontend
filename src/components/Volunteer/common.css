@@ -59,7 +59,11 @@
 .Table-container {
   margin-top: 20px;
   font-size: 20px;
-  overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: auto;
   overflow-y: visible;
 }
 thead {
@@ -70,14 +74,15 @@ tr {
   background-color: white;
   color: black;
 }
-.tr {
+/* .tr {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  width: fit-content;
   place-items: center;
   border-bottom-style: solid;
   border-width: 1px;
   border-color: gray;
-}
+} */
 th {
   padding-left: 50px;
   padding-right: 50px;
@@ -92,4 +97,10 @@ td {
   background-color: #fff;
   border: none;
   width: 50px;
+}
+@media (max-width: 525px) {
+  th {
+    padding: 0;
+    width: 130px;
+  }
 }
