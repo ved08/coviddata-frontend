@@ -4,8 +4,6 @@ import { FcGoogle } from "react-icons/fc"
 import firebase from "../../firebase"
 import "./common.css"
 import HeaderComp from "../HeaderComp"
-import { load } from "dotenv"
-
 const Registration = (props) => {
     const [ phoneNumber, setPhoneNumber ] = useState("");
     const [loading, setLoading] = useState(false)

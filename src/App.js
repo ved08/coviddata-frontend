@@ -22,19 +22,14 @@ function App() {
         <Route path="/" exact component={Homepage}/>
         <Route path="/auth" exact component={Registration}/>
         <PrivateRoute path="/volunteer" exact component={Instr}/>
-        
-        {
-          Auth.getAuthStatus() ? 
           <Route path="/patient-data" exact>
             <VolunteerPatient links={getLinks} data={getData}/>
-          </Route>: 
-          <Redirect to="/"/>
-        }
-         <Route path="/patient/links" exact>
-            <PatientLinks links={links} data={data}/>
           </Route>
         <Route path="/registration/patient" exact>
           <PatientRegistration links={getLinks} data={getData}/>
+        </Route>
+        <Route path="/patient/links" exact>
+            <PatientLinks links={links} data={data}/>
         </Route>
       </Switch>
     </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Auth from "../../auth"
 import HeaderComp from "../HeaderComp";
 import "./common.css"
@@ -17,6 +17,7 @@ const Instr = () => {
                 <li>You can also amplify the issue by posting a social media post we have created in the right format(Click the share button to post it on all the social media platforms or just save/download it).</li>
             </ul>
             <Link to="/patient-data"><button className="Btn">Patients Data</button></Link>
+
         </div>
     );
 }

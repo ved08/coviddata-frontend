@@ -54,7 +54,7 @@ const PatientRegistration = props => {
                 <input type="text" onChange={e => setName(e.target.value)} />
             </div>
             <div className="Registration-field">
-                <label>Blood Group(optional)</label>
+                <label>Blood Group</label>
                 <select onChange={e => setBlood(e.target.value)}>
                     <option disabled hidden selected>Select</option>
                     <option value="A+">A+</option>
@@ -119,7 +119,7 @@ const PatientRegistration = props => {
                 </select>
             </div>
             <div className="Registration-field">
-                <label>City(optional)</label>
+                <label>City</label>
                 <input onChange={e => setCity(e.target.value)}/>
             </div>
             <div className="Registration-field">
