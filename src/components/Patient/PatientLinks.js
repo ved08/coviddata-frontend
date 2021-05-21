@@ -7,7 +7,7 @@ const PatientLinks = (props) => {
     const { links, data } = props;
     console.log({links, data})
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
-    let requirement = requirements.split(" ").join("%20")
+    let requirement = requirements?.split(" ").join("%20")
     console.log(requirement)
     const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0ABlood%20Group:%20${blood}%0AAge:%20${age}%0AState:%20${state}%0AHospital%20Name:%20${hospitalName}%0ACity:%20${city}%0APhone%20Number:%20${phn}%20Requirement:%20${requirements}%0ASPO2:%20${spo2}&text.font.size=35&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans` 
     let indexes = {
@@ -50,25 +50,26 @@ const PatientLinks = (props) => {
                         {
                             index ?
                             <Fragment> 
-                                {/* <h2>Resources</h2> */}
                                 <a style={{
                                     fontSize: 20,
                                 }} href={links[index]} target="_blank">Resources <FiExternalLink /></a> 
                             </Fragment>:
                             null
                         }
-                        
-                        {/* <h2>Support Groups</h2> */}
                         <br />
                         <a style={{
                                 fontSize: 20,
-                            }} href={links[4]}>Support Groups <FiExternalLink /></a>
+                            }} href={links[4]} target="_blank">Support Groups <FiExternalLink /></a>
+                        <br />
+                        <a target="_blank" style={{
+                            fontSize: 20
+                        }} href="https://docs.google.com/spreadsheets/d/1-eukXE3WzpcrXtSKrKlMajV6MkR-3M9OOwDS2iPmPLU/edit#gid=1432156813">Pan India <FiExternalLink /></a>
                         
                     </div> : 
                     <div>
-                        <a style={{
+                        <a target="_blank" style={{
                                 fontSize: 20,
-                            }} href={links}>Support Groups <FiExternalLink /></a>
+                            }} href={links}>Pan India <FiExternalLink /></a>
                     </div>
                  : <div>
                         <p>Links not available. Please register first</p>
