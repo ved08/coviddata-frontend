@@ -1,3 +1,4 @@
+import CfaLogo from "../assets/codingforall(full).png";
 const Footer = () => (
     <div style={{
         width: "100%",

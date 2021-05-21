@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
 import Auth from "../../auth"
-import { FcGoogle } from "react-icons/fc"
 import firebase from "../../firebase"
 import "./common.css"
 import HeaderComp from "../HeaderComp"
+import OtpModal from "../Modal"
 const Registration = (props) => {
     const [ phoneNumber, setPhoneNumber ] = useState("");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [ modal, setModal ] = useState(false);
+    const [ otp, setOtp ] = useState("")
     useEffect(() => {
         window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container",
         {
@@ -14,15 +16,25 @@ const Registration = (props) => {
             // other options
         });
     }, [])
-    const onClick = () => {
-        setLoading(true)
-        Auth.loginWithPhone(phoneNumber, () => {
-            setLoading(false)
-            props.history.push("/volunteer")
-        }, () => {
-            setLoading(false)
-        })
-        
+    const onClick = async () => {
+        if(phoneNumber.length == 13) {
+            setLoading(true)  
+            await Auth.loginWithPhone(phoneNumber)
+            await toggle()
+        } else alert("Enter valid phone number")
+    }
+    const toggle = () => {
+        setModal(!modal)
+    }
+    const modalClosedHandler = () => {
+        if(otp.length) {
+            Auth.confirmOtp( phoneNumber, otp, () => {
+                setLoading(false)
+                props.history.push("/volunteer")
+            }, () => {
+                setLoading(false)
+            })
+        } else alert("No OTP detected. Please try again")
     }
     return(
         <div className="Registration">
@@ -40,7 +52,8 @@ const Registration = (props) => {
                 {loading && <p>Loading...</p>}
                 <input style={{
                     marginBottom: "20px"
-                }} id="recaptcha-container" value="Get OTP" type="button" onClick={() => onClick()} />
+                }} id="recaptcha-container" value="Get OTP" type="button" onClick={onClick} />
+                <OtpModal isOpen={modal} toggle={toggle} setOtp={e => setOtp(e.target.value)} closed={modalClosedHandler}/>
             </div>
         </div>
     );

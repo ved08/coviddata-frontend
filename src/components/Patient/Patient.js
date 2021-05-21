@@ -78,7 +78,13 @@ const PatientRegistration = props => {
             </div>
             <div className="Registration-field">
                 <label>State</label>
-                <select onChange={e => setState(e.target.value)}>
+                <select onChange={e => {
+                    if(e.target.value == "other") {
+                        let state = prompt("Please enter your state")
+                        setState(state)
+                    } else setState(e.target.value) 
+                    
+                }}>
                     <option disabled hidden selected>Select</option>
                     <option value="Andhra Pradesh">Andhra Pradesh</option>
                     {/* <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option> */}
@@ -86,10 +92,10 @@ const PatientRegistration = props => {
                     {/* <option value="Assam">Assam</option> */}
                     {/* <option value="Bihar">Bihar</option> */}
                     {/* <option value="Chandigarh">Chandigarh</option> */}
-                    {/* <option value="Chhattisgarh">Chhattisgarh</option> */}
+                    <option value="Chhattisgarh">Chhattisgarh</option>
                     {/* <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option> */}
                     {/* <option value="Daman and Diu">Daman and Diu</option> */}
-                    {/* <option value="Delhi">Delhi</option> */}
+                    <option value="Delhi">Delhi</option>
                     {/* <option value="Lakshadweep">Lakshadweep</option> */}
                     {/* <option value="Puducherry">Puducherry</option> */}
                     {/* <option value="Goa">Goa</option> */}
@@ -108,14 +114,15 @@ const PatientRegistration = props => {
                     {/* <option value="Nagaland">Nagaland</option> */}
                     {/* <option value="Odisha">Odisha</option> */}
                     {/* <option value="Punjab">Punjab</option> */}
-                    {/* <option value="Rajasthan">Rajasthan</option> */}
+                    <option value="Rajasthan">Rajasthan</option>
                     {/* <option value="Sikkim">Sikkim</option> */}
                     <option value="Tamil Nadu">Tamil Nadu</option>
                     <option value="Telangana">Telangana</option>
                     {/* <option value="Tripura">Tripura</option> */}
-                    {/* <option value="Uttar Pradesh">Uttar Pradesh</option> */}
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
                     {/* <option value="Uttarakhand">Uttarakhand</option> */}
-                    {/* <option value="West Bengal">West Bengal</option> */}
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="other">Other</option>
                 </select>
             </div>
             <div className="Registration-field">
@@ -141,12 +148,20 @@ const PatientRegistration = props => {
             </div>
             <div className="Registration-field">
                 <label>Requirements</label>
-                <select onChange={e => setRequirements(e.target.value)}>
+                <select onChange={e => {
+                    if(e.target.value == "other") {
+                        const val = prompt("Specify your requirement")
+                        setRequirements(val)
+                    } else {
+                        setRequirements(e.target.value)
+                    }
+                    }}>
                     <option disabled hidden selected>Select</option>
                     <option value="Oxygen">Oxygen Cylinder</option>
                     <option value="Beds">Beds</option>
-                    <option value="Plasma">Plasma</option>
-                    <option value="Remdesivir">Remdesivir</option>
+                    {/* <option value="Plasma">Plasma</option> */}
+                    {/* <option value="Remdesivir">Remdesivir</option> */}
+                    <option value="other">Other</option>
                 </select>
             </div>
             <div className="Registration-field">

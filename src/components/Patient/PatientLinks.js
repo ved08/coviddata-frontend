@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import imageToBase64 from "image-to-base64/browser" 
 import HeaderComp from "../HeaderComp";
 import "./PatientLinks.css"
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 const PatientLinks = (props) => {
     const { links, data } = props;
     console.log(links)
@@ -26,27 +26,35 @@ const PatientLinks = (props) => {
             index: 3
         },
     }
+    console.log(requirements)
     console.log("sfrdvr")
     let linkLogic = () => {
         if(links.length) {
             console.log(indexes)
-            if(requirements.split(" ").shift() == indexes[requirements.split(" ").shift()].name) {
+            if(requirements.split(" ").shift() == indexes[requirements.split(" ").shift()]?.name) {
                 console.log(indexes[requirements.split(" ").shift()])
                 return indexes[requirements.split(" ").shift()].index
             }
         }
-        
+        return false
     }
     let index = linkLogic()
     return(
         <div className="Patient-Links">
             <HeaderComp />
-            <h1>Links</h1>
             <ul>
+            <h2>Links</h2>
                 {links.length ? (
                     <div>
-                        <h2>Resources</h2>
-                        <a href={links[index]} target="_blank">Link here</a>
+                        {
+                            index ?
+                            <Fragment> 
+                                <h2>Resources</h2>
+                                <a href={links[index]} target="_blank">Link here</a> 
+                            </Fragment>:
+                            null
+                        }
+                        
                         <h2>Support Groups</h2>
                         <a href={links[4]}>Link here</a>
                     </div>

@@ -6,42 +6,8 @@ import path from "path";
 
 class Auth {
     constructor() {
-        this.auth = false
-    }
-
-    login(cb, captchaELem) {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider)
-        .then(async result => {
-            if(!result.user.phoneNumber) {
-                let phoneNumber = prompt("Provide your phone number");
-                phoneNumber = "+91" + phoneNumber;
-                // firebase.auth().settings.appVerificationDisabledForTesting = true;
-                let appVerifier = await new firebase.auth.RecaptchaVerifier(
-                    captchaELem, { size: 'invisible'}
-                )
-                
-                return result.user.linkWithPhoneNumber(phoneNumber, appVerifier)
-                .then(confirmationResult => {
-                    var code = prompt("Provide your SMS code")
-                    const confirm = confirmationResult.confirm(code).then(res => {
-                        console.log("sucess")
-                        this.auth = true
-                        cb()
-                    }).catch(err => {
-                        alert(err.message)
-                    })
-                    return confirm
-                }).catch(err => {
-                    alert(err.message)
-                    console.log(err)
-                })
-            }
-            else {
-                this.auth = true
-            }
-            // this.auth = true
-        });
+        this.auth = false;
+        this.otpData = {}
     }
     async onAuthStateChanged() {
         let userData = {}
@@ -63,23 +29,14 @@ class Auth {
         this.auth = false
     }
 
-
-    loginWithPhone = (phoneNumber, cb, err) => {
-        if(phoneNumber) {
-            const appVerifier = window.recaptchaVerifier;
-            firebase
-            .auth()
-            .signInWithPhoneNumber(phoneNumber, appVerifier)
-            .then(confirmResult => {
-              // success
-              const code = prompt("Enter code")
-              confirmResult.confirm(code)
-              .then(async res => {
+    confirmOtp = (phoneNumber, code, cb, errorCb) => {
+        this.otpData.confirm(code)
+            .then(async res => {
                   const { user } = res;
                   const { uid } = user;
                   this.auth = true
                   let name = "";
-                  await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/name/verify", { uid })
+                  await axios.post("https://codingforall-coviddata.herokuapp.com/volunteer/name/verify", { uid })
                   .then(res => {
                       console.log(res.data, "what?")
                       if(res.data == "No Name" || res.data == "") {
@@ -87,7 +44,7 @@ class Auth {
                       }
                   })
                   await console.log(name)
-                  await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", {
+                  await axios.post("https://codingforall-coviddata.herokuapp.com/volunteer/data", {
                       displayName: name,
                       phoneNumber,
                       uid
@@ -96,17 +53,55 @@ class Auth {
                       cb()
                   }).catch(err => alert(err.message))
                   console.log(user)
-              }).catch(err => {
-                  err()
-                  alert(err.message)
-                })
             })
-            .catch(error => {
-              // error
-              err()
-              alert(error.message)
-            });
-        } else alert("All fields are necessary")
+            .catch(err => {
+                alert(err.message)
+                errorCb()
+            })
+    }
+    loginWithPhone = async (phoneNumber) => {
+        if(phoneNumber) {
+            const appVerifier = window.recaptchaVerifier;
+            const res = await firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)          
+            this.otpData = res
+            // .then(confirmResult => {
+            //   // success
+            //   const code = otp
+            //   confirmResult.confirm(code)
+            //   .then(async res => {
+            //       const { user } = res;
+            //       const { uid } = user;
+            //       this.auth = true
+            //       let name = "";
+            //       await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/name/verify", { uid })
+            //       .then(res => {
+            //           console.log(res.data, "what?")
+            //           if(res.data == "No Name" || res.data == "") {
+            //               name = prompt("Enter your Name")
+            //           }
+            //       })
+            //       await console.log(name)
+            //       await axios.post("https://coviddata.vedvardhan.repl.co/volunteer/data", {
+            //           displayName: name,
+            //           phoneNumber,
+            //           uid
+            //       }).then(res => {
+            //           console.log(res.data)
+            //           cb()
+            //       }).catch(err => alert(err.message))
+            //       console.log(user)
+            //     })
+            //   .catch(err => {
+            //       err()
+            //       alert(err.message)
+            //     })
+            // })
+            // .catch(error => {
+            //   // error
+            //   err()
+            //   alert(error.message)
+            // });
+        } else alert("Try Again")
     }
 }
 
