@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom"
-import imageToBase64 from "image-to-base64/browser" 
+import { FiExternalLink } from "react-icons/fi"
 import HeaderComp from "../HeaderComp";
 import "./PatientLinks.css"
 import { Fragment, useEffect } from "react";
 const PatientLinks = (props) => {
     const { links, data } = props;
-    console.log(links)
+    console.log({links, data})
     const { name, blood, age, hospitalName, spo2, requirements, relationship, state, city, phn } = data;
-    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0ABlood%20Group:%20${blood}%0AAge:%20${age}%0AState:%20${state}%0AHospital%20Name:%20${hospitalName}%0ACity:%20${city}%0APhone%20Number:%20${phn}%0AResources%20Required:%20${requirements}%0ASPO2:%20${spo2}&text.font.size=40&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans&text.font.weight=600` 
+    let requirement = requirements.split(" ").join("%20")
+    console.log(requirement)
+    const imageUrl = `https://rophyllo.sirv.com/Images/Covid%20Poster.jpg?text=Name:%20${name}%0ABlood%20Group:%20${blood}%0AAge:%20${age}%0AState:%20${state}%0AHospital%20Name:%20${hospitalName}%0ACity:%20${city}%0APhone%20Number:%20${phn}%20Requirement:%20${requirements}%0ASPO2:%20${spo2}&text.font.size=35&text.color=black&text.align=left&text.position=center&text.font.family=OpenSans` 
     let indexes = {
         "Plasma": {
             name: "Plasma",
@@ -26,16 +28,14 @@ const PatientLinks = (props) => {
             index: 3
         },
     }
-    console.log(requirements)
-    console.log("sfrdvr")
     let linkLogic = () => {
-        if(links.length) {
+        if(links.length && typeof links !== "string") {
             console.log(indexes)
             if(requirements.split(" ").shift() == indexes[requirements.split(" ").shift()]?.name) {
                 console.log(indexes[requirements.split(" ").shift()])
                 return indexes[requirements.split(" ").shift()].index
             }
-        }
+        } else return -1
         return false
     }
     let index = linkLogic()
@@ -43,22 +43,34 @@ const PatientLinks = (props) => {
         <div className="Patient-Links">
             <HeaderComp />
             <ul>
-            <h2>Links</h2>
-                {links.length ? (
+            <h2>Helpful links</h2>
+                {links.length ?
+                    typeof links !== "string" ?
                     <div>
                         {
                             index ?
                             <Fragment> 
-                                <h2>Resources</h2>
-                                <a href={links[index]} target="_blank">Link here</a> 
+                                {/* <h2>Resources</h2> */}
+                                <a style={{
+                                    fontSize: 20,
+                                }} href={links[index]} target="_blank">Resources <FiExternalLink /></a> 
                             </Fragment>:
                             null
                         }
                         
-                        <h2>Support Groups</h2>
-                        <a href={links[4]}>Link here</a>
+                        {/* <h2>Support Groups</h2> */}
+                        <br />
+                        <a style={{
+                                fontSize: 20,
+                            }} href={links[4]}>Support Groups <FiExternalLink /></a>
+                        
+                    </div> : 
+                    <div>
+                        <a style={{
+                                fontSize: 20,
+                            }} href={links}>Support Groups <FiExternalLink /></a>
                     </div>
-                ) : <div>
+                 : <div>
                         <p>Links not available. Please register first</p>
                         <Link className="Register-Link" to="/registration/patient"><button className="Btn">Register</button></Link>
                     </div>

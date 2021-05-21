@@ -17,6 +17,7 @@ const PatientRegistration = props => {
     const [ spo2, setSpo2 ] = useState("N.A.")
     const [resLinks, setResLinks] = useState([]);
     const [data, setData] = useState({})
+    const [customState, setCustomState] = useState(false)
 
     const submitHandler = () => {
         if(name && state && requirements && phn && age) {    
@@ -32,16 +33,24 @@ const PatientRegistration = props => {
                 "requirements": requirements, 
                 "relationship": relationship
             }
-            axios.post("https://coviddata.vedvardhan.repl.co/resources", data)
-            .then(res => {
-                const str = eval(res.data)
-                setResLinks(str)
+            if(!customState) {
+                axios.post("https://codingforall-coviddata.herokuapp.com/resources", data)
+                .then(res => {
+                    const str = eval(res.data)
+                    setResLinks(str)
+                    setData(data)
+                    props.links(str)
+                    props.data(data)
+                    props.history.push('/patient/links')
+                })
+                .catch(err => alert(err.message))
+            } else {
+                setResLinks("https://docs.google.com/spreadsheets/d/1-eukXE3WzpcrXtSKrKlMajV6MkR-3M9OOwDS2iPmPLU/edit#gid=1432156813")
                 setData(data)
-                props.links(str)
+                props.links("https://docs.google.com/spreadsheets/d/1-eukXE3WzpcrXtSKrKlMajV6MkR-3M9OOwDS2iPmPLU/edit#gid=1432156813")
                 props.data(data)
                 props.history.push('/patient/links')
-            })
-            .catch(err => alert(err.message))
+            }
         } else alert("Please fill the required fields")
     }
 
@@ -82,6 +91,7 @@ const PatientRegistration = props => {
                     if(e.target.value == "other") {
                         let state = prompt("Please enter your state")
                         setState(state)
+                        setCustomState(true)
                     } else setState(e.target.value) 
                     
                 }}>
@@ -157,7 +167,7 @@ const PatientRegistration = props => {
                     }
                     }}>
                     <option disabled hidden selected>Select</option>
-                    <option value="Oxygen">Oxygen Cylinder</option>
+                    <option value="Oxygen">Oxygen</option>
                     <option value="Beds">Beds</option>
                     {/* <option value="Plasma">Plasma</option> */}
                     {/* <option value="Remdesivir">Remdesivir</option> */}
